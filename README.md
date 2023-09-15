@@ -17,23 +17,24 @@
 
 
 
+```plaintext
 On-the-Contractivity-of-Plug-and-Play-Operators/
 │
-├── images/ # Directory containing test images
-│ ├── 1.png # Sample image
-│ ├── ... # Other images
-│ └── 16.png
+├── images/                # Directory containing test images
+│   ├── 1.png              # Sample image
+│   ├── ...                # Other images
+│   └── 16.png
 │
-├── denoisers/ # Denoisers scripts and utilities
-│ ├── GMM_denoiser/ # GMM denoiser directory (details/contents not provided)
-│ ├── bm3d_denoiser.py # BM3D denoising algorithm
-│ ├── mlp_denoiser.py # MLP denoising algorithm
-│ └── utility.py # Utility functions for denoisers
+├── denoisers/             # Denoisers scripts and utilities
+│   ├── GMM_denoiser/      # GMM denoiser directory (details/contents not provided)
+│   ├── bm3d_denoiser.py   # BM3D denoising algorithm
+│   ├── mlp_denoiser.py    # MLP denoising algorithm
+│   └── utility.py         # Utility functions for denoisers
 │
-├── results/ # Directory to save results
+├── results/               # Directory to save results
 │
-├── forward_models.py # Script containing forward models
-├── iterative_algorithms.py # Script with iterative algorithms implementations
-├── NLM.py # Non-Local Means denoising implementation
-├── main.py # Main script to run the demo
-└── utils.py # General utility functions
+├── forward_models.py     # Script containing forward models
+├── iterative_algorithms.py  # Script with iterative algorithms implementations
+├── NLM.py                # Non-Local Means denoising implementation
+├── main.py               # Main script to run the demo
+└── utils.py              # General utility functions
