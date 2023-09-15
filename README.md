@@ -38,13 +38,14 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 ├── NLM.py                # Non-Local Means denoising implementation
 ├── main.py               # Main script to run the demo
 └── utils.py              # General utility functions
+└── config.py             # Experiment configuration and parameters
 
 
 ## 🛠 Prerequisites
 
 - **Operating System**: Recommended: *Linux Ubuntu 20.04*
 - **Python**: Version 3.8 or higher
-- **Dependencies**: All required python libraries are listed in `requirements.txt` (please create this if not present)
+- **Dependencies**: All required Python libraries are listed in `requirements.txt` (please create this if not present)
 
 ## 🚀 Setup
 
