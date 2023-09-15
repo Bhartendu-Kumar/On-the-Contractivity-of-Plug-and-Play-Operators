@@ -39,17 +39,17 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 ├── main.py               # Main script to run the demo
 └── utils.py              # General utility functions
 └── config.py             # Experiment configuration and parameters
-
+'''
 
 ## 🛠 Prerequisites
 
 - **Operating System**: Recommended: *Linux Ubuntu 20.04*
 - **Python**: Version 3.8 or higher
-- **Dependencies**: All required Python libraries are listed in `requirements.txt` (please create this if not present)
+- **Dependencies**: All required Python libraries are listed in `requirements.txt`
 
 ## 🚀 Setup
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/[Your-GitHub-Username]/On-the-Contractivity-of-Plug-and-Play-Operators.git
+   git clone https://github.com/Bhartendu-Kumar/On-the-Contractivity-of-Plug-and-Play-Operators.git
 
