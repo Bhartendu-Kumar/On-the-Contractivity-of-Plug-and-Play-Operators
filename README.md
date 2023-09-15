@@ -1,2 +1,3 @@
 # On-the-Contractivity-of-Plug-and-Play-Operators
-SPL Paper Codes
+
+#### This repository contains codes for the SPL paper: On the Contractivity of Plug-and-Play Operators
