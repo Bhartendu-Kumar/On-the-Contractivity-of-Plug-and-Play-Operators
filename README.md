@@ -1,6 +1,30 @@
 # On-the-Contractivity-of-Plug-and-Play-Operators
 
 #### This repository contains codes for the SPL paper: On the Contractivity of Plug-and-Play Operators
+---
+
+This repository is solving linear inverse problems in image processing. At its core, a linear inverse problem aims to reconstruct an image that might contain corrupted or unobserved pixels. Our repository provides solutions for three primary reconstruction techniques:
+
+1. **Image Inpainting**: In this scenario, a subset of the image's pixels is unobserved. The challenge is to reconstruct the entire image, including these unobserved pixels.
+   
+2. **Superresolution**: Here, the input is a downscaled version of the original image. The goal is to reconstruct the image back to its original resolution.
+   
+3. **Deblurring (Uniform and Gaussian)**: The objective in this method is to counteract the blur effect in an image, bringing back its original clarity and sharpness.
+
+A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play Iterative Shrinkage Thresholding Algorithm). ISTA as an iterative algorithm for image reconstructions was due to Beck and Teboulle[^beck2009fast^]. Sreehari et al.[^sreehari2016plug^] showed using a powerful denoiser for ISTA, i.e. PnP-ISTA, is particularly effective for reconstructions. In our implementation, we've adopted the Non-Local Means denoiser (NLM) denoiser implement PnP-ISTA to get the reconstructions. Our methodology underscores:
+
+- The contractivity of relevant operators, symbolized as \(P\) and \(R\) (as detailed in our paper).
+   
+- The robustness of the approach, where different initializations converge to the same reconstruction.
+
+---
+
+### References:
+
+[^beck2009fast^]: Beck, A., & Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. SIAM journal on imaging sciences, 2(1), 183-202.
+
+[^sreehari2016plug^]: Sreehari, S., Venkatakrishnan, S. V., Wohlberg, B., Buzzard, G. T., Drummy, L. F., Simmons, J. P., & Bouman, C. A. (2016). Plug-and-play priors for bright field electron tomography and sparse interpolation. IEEE Transactions on Computational Imaging, 2(4), 408-423.
+
 
 ## 📄 Table of Contents
 
@@ -25,6 +49,7 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 │   └── 16.png
 │
 ├── denoisers/             # Denoisers scripts and utilities
+│   ├── NLM.py                # Non-Local Means denoising implementation
 │   ├── GMM_denoiser/      # GMM denoiser directory (details/contents not provided)
 │   ├── bm3d_denoiser.py   # BM3D denoising algorithm
 │   ├── mlp_denoiser.py    # MLP denoising algorithm
@@ -34,11 +59,11 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 │
 ├── forward_models.py     # Script containing forward models
 ├── iterative_algorithms.py  # Script with iterative algorithms implementations
-├── NLM.py                # Non-Local Means denoising implementation
+├── contractive_factor.py # To compute the contractive factors using the power method
 ├── main.py               # Main script to run the demo
-└── utils.py              # General utility functions
-└── config.py             # Experiment configuration and parameters
-
+├── utils.py              # General utility functions
+├── config.py             # Experiment configuration and parameters
+└── requirements.txt      # Install the libraries required
 ```
 
 ## 🛠 Prerequisites
