@@ -121,4 +121,19 @@ This section provides a brief overview of the helper scripts included in the rep
 5. **contractive_factor.py**:  
    Contains the code to compute the contraction factor of operators \(P\) and \(R\) (refer to the paper) using power methods.
 
+## 📝 Citation
 
+If you find our work useful and wish to cite it, please use the following BibTeX:
+
+```
+@article{kumar2023contractivity,
+    title={On the Contractivity of Plug-and-Play Operators},
+    author={Kumar, Bhartendu and Chaudhury, Kunal N.},
+    journal={IEEE Signal Processing Letters},
+    year={2023},
+    volume={xx},
+    number={x},
+    pages={xxx-xxx},
+    doi={xx.xxxxx/xxxxx}
+}
+```
