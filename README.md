@@ -9,7 +9,6 @@
 - [Setup](#-setup)
 - [Running the Main Script](#-running-the-main-script)
 - [Helper Scripts](#-helper-scripts)
-- [Results](#-results)
 - [Citation](#-citation)
 - [Contact](#-contact)
 
@@ -96,5 +95,30 @@ To run the `main.py` script using the default settings:
 ```
 python3 main.py
 ```
+## 🛠 Helper Scripts
+
+This section provides a brief overview of the helper scripts included in the repository:
+
+1. **config.py**:  
+   Contains configurations required to run the demo and other scripts.
+
+2. **forward_models.py**:  
+   Implements various forward models:
+   - Inpainting
+   - Deblurring:
+     - Uniform
+     - Gaussian
+   - Superresolution
+
+3. **iterative_algorithms.py**:  
+   Contains the implementations of:
+   - ISTA
+   - ADMM
+
+4. **NLM.py**:  
+   Provides the Non-Local Means (NLM) denoising method.
+
+5. **contractive_factor.py**:  
+   Contains the code to compute the contraction factor of operators \(P\) and \(R\) (refer to the paper) using power methods.
 
 
