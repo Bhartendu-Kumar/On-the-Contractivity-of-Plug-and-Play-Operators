@@ -55,6 +55,36 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
    ```bash
    git clone https://github.com/Bhartendu-Kumar/On-the-Contractivity-of-Plug-and-Play-Operators.git
 
-## Running the Main Script
+## 🎯 Running the Main Script
+
+The `main.py` script is the primary entry point to run the demo. You can customize the execution using various command-line arguments.
+
+### Arguments:
+
+- `--image_path`: Path to the folder containing the images.  
+  **Default**: `'images/'`
+  
+- `--output_path`: Path to the folder where the denoised results should be saved.  
+  **Default**: `'results/'`
+  
+- `--image_num`: Specifies the number of the image to be denoised.  
+  **Default**: `1`
+  
+- `--initialization`: The initialization method for the algorithm.  
+  **Default**: `'median'`
+  
+- `--ITERATIVE_ALGORITHM`: The iterative algorithm to be employed for denoising.  
+  **Default**: `'ISTA'`
+  
+- `--INVERSE_PROBLEM`: Specifies the inverse problem to solve.  
+  **Default**: `'INPAINTING'`
+
+### Example:
+
+To run the `main.py` script using the default settings:
+
+```bash
+python main.py
+
 
 
