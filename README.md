@@ -93,8 +93,8 @@ The `main.py` script is the primary entry point to run the demo. You can customi
 
 To run the `main.py` script using the default settings:
 
-```bash
-python main.py
-
+```
+python3 main.py
+```
 
 
