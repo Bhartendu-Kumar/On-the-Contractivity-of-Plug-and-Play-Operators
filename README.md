@@ -17,7 +17,7 @@
 
 
 
-```plaintext
+```
 On-the-Contractivity-of-Plug-and-Play-Operators/
 │
 ├── images/                # Directory containing test images
@@ -39,7 +39,8 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 ├── main.py               # Main script to run the demo
 └── utils.py              # General utility functions
 └── config.py             # Experiment configuration and parameters
-plaintext```
+plaintext
+```
 
 ## 🛠 Prerequisites
 
@@ -49,7 +50,11 @@ plaintext```
 
 ## 🚀 Setup
 
+
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Bhartendu-Kumar/On-the-Contractivity-of-Plug-and-Play-Operators.git
+
+## Running the Main Script
+
 
