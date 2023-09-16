@@ -52,17 +52,19 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 
 
 1. **Clone the Repository**:
-   ```bash
+   ```
    git clone https://github.com/Bhartendu-Kumar/On-the-Contractivity-of-Plug-and-Play-Operators.git
+   ```
 2. 🌐 Set Up a Virtual Environment (recommended)
-```bash
+```
 cd On-the-Contractivity-of-Plug-and-Play-Operators
 python3 -m venv venv
 source venv/bin/activate
+```
 3. 📦 Install Dependencies
-```bash
+```
 pip install -r requirements.txt
-
+```
 ## 🎯 Running the Main Script
 
 The `main.py` script is the primary entry point to run the demo. You can customize the execution using various command-line arguments.
