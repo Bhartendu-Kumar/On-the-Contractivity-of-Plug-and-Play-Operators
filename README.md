@@ -39,7 +39,7 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 ├── main.py               # Main script to run the demo
 └── utils.py              # General utility functions
 └── config.py             # Experiment configuration and parameters
-'''
+```
 
 ## 🛠 Prerequisites
 
