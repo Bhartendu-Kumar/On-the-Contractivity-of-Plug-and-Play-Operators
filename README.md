@@ -20,11 +20,7 @@ A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play I
 
 ---
 
-### References:
 
-[^beck2009fast^]: Beck, A., & Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. SIAM journal on imaging sciences, 2(1), 183-202.
-
-[^sreehari2016plug^]: Sreehari, S., Venkatakrishnan, S. V., Wohlberg, B., Buzzard, G. T., Drummy, L. F., Simmons, J. P., & Bouman, C. A. (2016). Plug-and-play priors for bright field electron tomography and sparse interpolation. IEEE Transactions on Computational Imaging, 2(4), 408-423.
 
 
 ## 📄 Table of Contents
@@ -163,3 +159,8 @@ If you find our work useful and wish to cite it, please use the following BibTeX
     doi={xx.xxxxx/xxxxx}
 }
 ```
+### References:
+
+[^beck2009fast^]: Beck, A., & Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. SIAM journal on imaging sciences, 2(1), 183-202.
+
+[^sreehari2016plug^]: Sreehari, S., Venkatakrishnan, S. V., Wohlberg, B., Buzzard, G. T., Drummy, L. F., Simmons, J. P., & Bouman, C. A. (2016). Plug-and-play priors for bright field electron tomography and sparse interpolation. IEEE Transactions on Computational Imaging, 2(4), 408-423.
