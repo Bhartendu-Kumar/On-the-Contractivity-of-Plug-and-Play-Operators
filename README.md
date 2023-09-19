@@ -202,16 +202,13 @@ Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for com
 
 Norm Computation for Operators \( \P \) and \( \R \)
 
-For the accurate calculation of the \( \|.\|_2 \) norm or \( \|.\|_D \) norm of the operators \( \P \) and \( \R \), there are several requirements:
+For the accurate calculation of the \( ||.||_2 \) norm or \( ||.||_D \) norm of the operators \( \P \) and \( \R \), there are several requirements:
 
-### 1. Forward Operator \( A \):
-It should be implemented as an operator on an image. This operator represents the process or system we aim to invert or counteract when solving the inverse problem.
+- Forward Operator \( A \): It should be implemented as an operator on an image. This operator represents the process or system we aim to invert or counteract when solving the inverse problem.
 
-### 2. Step Size:
-The step size (often denoted as \( \gamma \) or other Greek letters) determines the magnitude of each step in iterative algorithms like the power method. It can significantly impact the speed of convergence and the stability of the algorithm.
+- Step Size: The step size (often denoted as \( \gamma \) or other Greek letters) determines the magnitude of each step in iterative algorithms like the power method. It can significantly impact the speed of convergence and the stability of the algorithm.
 
-### 3. Denoiser \( W \):
-This is a function that aims to remove noise from a given image. For our purposes, it requires three inputs:
+- Denoiser \( W \): This is a function that aims to remove noise from a given image. For our purposes, it requires three inputs:
    - The noisy image.
    - The parameters for the Non-Local Means (NLM) algorithm.
    - A guide image to help the denoising process.
