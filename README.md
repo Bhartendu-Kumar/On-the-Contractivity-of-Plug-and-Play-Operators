@@ -191,12 +191,12 @@ This function starts by initializing a random image with the same shape as the p
 
 The function is instrumental in determining the contraction factor of the operator $ \mathbf{P} $ where:
 
-$ \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A}) $
+$` \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A}) `$
 
 and the operator $ \R $, defined as:
 
-$ \mathbf{R} = \frac{1}{2}(\I + \J), \qquad \J = \mathbf{F}\mathbf{V} $
-$ \mathbf{F} = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I) $
+$` \mathbf{R} = \frac{1}{2}(\I + \J), \qquad \J = \mathbf{F}\mathbf{V} `$
+$` \mathbf{F} = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I) `$
 
 Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the \( \|.\|_{D} \) norm is employed.
 
