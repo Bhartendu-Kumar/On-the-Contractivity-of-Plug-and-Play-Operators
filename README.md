@@ -179,8 +179,8 @@ Both implementations can take images directly as input and produce the denoised 
 5. **contractive_factor.py**:   
 The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators $` \mathbf{P} `$ and $` \mathbf{R} `$ (refer to the paper)  using the power method.
 
-       Function: power_method_for_images
-       Parameters:
+    Function: power_method_for_images
+    Parameters:
       
       - `f`: The operator implemented as a function for which the spectral norm is being computed.
       - `args_dict`: A dictionary containing arguments to the operator `f`.
