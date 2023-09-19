@@ -88,25 +88,43 @@ pip install -r requirements.txt
 ## 🎯 Running the Main Script
 
 The `main.py` script is the primary entry point to run the demo. You can customize the execution using various command-line arguments.
+This script serves as the primary interface to run the demo. You can easily tailor the execution by leveraging various command-line arguments.
 
-### Arguments:
+### 🛠 Arguments:
 
-- `--image_path`: Path to the folder containing the images.  
+- `--image_path`:  
+  Path to the folder that hosts the images.  
   **Default**: `'images/'`
   
-- `--output_path`: Path to the folder where the denoised results should be saved.  
+- `--output_path`:  
+  Determines the folder where the processed results will be deposited.  
   **Default**: `'results/'`
   
-- `--image_num`: Specifies the number of the image to be denoised.  
+- `--image_num`:  
+  Choose which image to process. Accepts numbers 1 through 16.  
+  1-14: Standard images commonly employed in image processing.  
+  15: A uniform image where all pixels are of 0.5 intensity.  
+  16: A Gaussian image generated with parameters \( \mathcal{N}(0.5, 0.5) \).  
   **Default**: `1`
   
-- `--initialization`: The initialization method for the algorithm.  
+- `--initialization`:  
+  The method used for algorithm initialization. Options are:  
+  - `'median'`: Uses median filtering on the observed image to initialize.
+  - `'zero'`: Initializes with an image where all pixels are set to 0.
+  - `'ones'`: Initializes with an image where all pixels are set to 1.
+  - `'gaussian'`: Initializes with a Gaussian image with parameters \( \mathcal{N}(0.5, 0.5) \).  
   **Default**: `'median'`
   
-- `--ITERATIVE_ALGORITHM`: The iterative algorithm to be employed for denoising.  
+- `--ITERATIVE_ALGORITHM`:  
+  Chooses the iterative algorithm for the process.  
   **Default**: `'ISTA'`
   
-- `--INVERSE_PROBLEM`: Specifies the inverse problem to solve.  
+- `--INVERSE_PROBLEM`:  
+  Determines the inverse problem to solve. The choices are:
+  - `'INPAINTING'`
+  - `'SUPERRESOLUTION'`
+  - `'UNIFORM-DEBLURRING'`
+  - `'GAUSSIAN-DEBLURRING'`  
   **Default**: `'INPAINTING'`
 
 ### Example:
@@ -116,6 +134,14 @@ To run the `main.py` script using the default settings:
 ```
 python3 main.py
 ```
+
+**Custom Settings**:
+
+If you want to alter certain settings, here's an example that sets a non-default image number, initialization method, and inverse problem:
+```
+python3 main.py --image_num 10 --initialization 'gaussian' --INVERSE_PROBLEM 'SUPERRESOLUTION'
+```
+
 ## 🛠 Helper Scripts
 
 This section provides a brief overview of the helper scripts included in the repository:
@@ -136,8 +162,14 @@ This section provides a brief overview of the helper scripts included in the rep
    - ISTA
    - ADMM
 
-4. **NLM.py**:  
-   Provides the Non-Local Means (NLM) denoising method.
+4. **denoisers/NLM.py**:  
+   This script implements the Non-Local Means (NLM) denoising method. It includes two denoiser functions:
+
+- `DSG_NLM`: The symmetric NLM version[^sreehari2016plug^].
+- `NLM`: The standard Non-Local Means denoiser[^buades^].
+
+Both implementations can take images directly as input and produce the denoised image as output.
+
 
 5. **contractive_factor.py**:  
    Contains the code to compute the contraction factor of operators \(P\) and \(R\) (refer to the paper) using power methods.
@@ -162,5 +194,6 @@ If you find our work useful and wish to cite it, please use the following BibTeX
 
 [^beck2009fast^]: Beck, A., & Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. SIAM journal on imaging sciences, 2(1), 183-202.
 [^admm^]: Boyd, Stephen, et al. "Distributed optimization and statistical learning via the alternating direction method of multipliers." Foundations and Trends® in Machine learning 3.1 (2011): 1-122.
+[^buades^]: A. Buades, B. Coll, and J. M. Morel. "A non-local algorithm for image denoising." In _Proc. IEEE Conf. Comp. Vis. Pattern Recognit._, vol. 2, pp. 60–65, 2005.
 
 [^sreehari2016plug^]: Sreehari, S., Venkatakrishnan, S. V., Wohlberg, B., Buzzard, G. T., Drummy, L. F., Simmons, J. P., & Bouman, C. A. (2016). Plug-and-play priors for bright field electron tomography and sparse interpolation. IEEE Transactions on Computational Imaging, 2(4), 408-423.
