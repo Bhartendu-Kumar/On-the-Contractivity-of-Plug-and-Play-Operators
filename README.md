@@ -126,7 +126,12 @@ This script serves as the primary interface to run the demo. You can easily tail
   - `'UNIFORM-DEBLURRING'`
   - `'GAUSSIAN-DEBLURRING'`  
   **Default**: `'INPAINTING'`
-
+- `--denoiser`:  
+  Chooses the denoiser for the PnP iterates.
+  - `'DSG_NLM'`: Symmetric Denoiser
+  - `'NLM'` : Kernal Denoiser
+  **Default**: `'NLM'`
+  
 ### Example:
 
 To run the `main.py` script using the default settings:
@@ -139,7 +144,7 @@ python3 main.py
 
 If you want to alter certain settings, here's an example that sets a non-default image number, initialization method, and inverse problem:
 ```
-python3 main.py --image_num 10 --initialization 'gaussian' --INVERSE_PROBLEM 'SUPERRESOLUTION'
+python3 main.py --image_num 10 --initialization 'gaussian' --INVERSE_PROBLEM 'SUPERRESOLUTION' --denoiser 'NLM'
 ```
 
 ## 🛠 Helper Scripts
@@ -171,8 +176,47 @@ This section provides a brief overview of the helper scripts included in the rep
 Both implementations can take images directly as input and produce the denoised image as output.
 
 
-5. **contractive_factor.py**:  
-   Contains the code to compute the contraction factor of operators \(P\) and \(R\) (refer to the paper) using power methods.
+5. **contractive_factor.py**:   
+The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators \(P\) and \(R\) (refer to the paper)  using the power method.
+
+### Function: `power_method_for_images`
+#### Parameters:
+
+- `f`: The operator implemented as a function for which the spectral norm is being computed.
+- `args_dict`: A dictionary containing arguments to the operator `f`.
+- `input_image`: Any image that has the same shape as the input to the operator `f`.
+
+#### Details:  
+This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
+
+The function is instrumental in determining the contraction factor of the operator \( \P \) where:
+
+\[ \P = \W(\I-\gamma \A^\top\!  \A) \]
+
+and the operator \( \R \), defined as:
+
+\[ \R = \frac{1}{2}(\I + \J), \qquad \J = \F\V \]
+\[ \F = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I) \]
+
+Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the \( \|.\|_{D} \) norm is employed.
+
+Norm Computation for Operators \( \P \) and \( \R \)
+
+For the accurate calculation of the \( \|.\|_2 \) norm or \( \|.\|_D \) norm of the operators \( \P \) and \( \R \), there are several requirements:
+
+### 1. Forward Operator \( A \):
+It should be implemented as an operator on an image. This operator represents the process or system we aim to invert or counteract when solving the inverse problem.
+
+### 2. Step Size:
+The step size (often denoted as \( \gamma \) or other Greek letters) determines the magnitude of each step in iterative algorithms like the power method. It can significantly impact the speed of convergence and the stability of the algorithm.
+
+### 3. Denoiser \( W \):
+This is a function that aims to remove noise from a given image. For our purposes, it requires three inputs:
+   - The noisy image.
+   - The parameters for the Non-Local Means (NLM) algorithm.
+   - A guide image to help the denoising process.
+
+**Note**: During the repeated application of the denoiser in the power method updates, we utilize the original image as the guide image. The power method itself starts with a randomly initialized image to perform its updates.
 
 ## 📝 Citation
 
