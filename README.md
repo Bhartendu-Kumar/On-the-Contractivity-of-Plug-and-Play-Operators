@@ -177,7 +177,7 @@ Both implementations can take images directly as input and produce the denoised 
 
 
 5. **contractive_factor.py**:   
-The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators \(P\) and \(R\) (refer to the paper)  using the power method.
+The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators $` \mathbf{P} `$ and $` \mathbf{R} `$ (refer to the paper)  using the power method.
 
        Function: `power_method_for_images`
        Parameters:
@@ -200,8 +200,7 @@ The `contractive_factor.py` module houses the necessary code to compute the larg
       ```
       
       Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the $` \|.\|_{D} `$ norm is employed.
-      
-      Norm Computation for Operators $` \P `$ and $` \R `$
+
       
       For the calculation of the $` ||.||_2 `$ norm or $` ||.||_D `$ norm of the operators $`  \mathbf{P} `$ and $`  \mathbf{R} `$, there we need:
       
@@ -214,7 +213,7 @@ The `contractive_factor.py` module houses the necessary code to compute the larg
          - The parameters for the Non-Local Means (NLM) algorithm.
          - A `guide_image` to help the denoising process.
       
-      **Note**: During the repeated application of the denoiser in the power method updates, we utilize the original image as the guide image. The power method itself starts with a randomly initialized image to perform its updates.
+      **Note**: During the repeated application of the denoiser in the power method updates, we utilize the `original_image` as the `guide_image`. The power method itself starts with a randomly initialized          image to perform its updates.
 
 ## 📝 Citation
 
