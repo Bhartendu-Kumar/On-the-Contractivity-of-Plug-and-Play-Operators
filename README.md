@@ -179,27 +179,28 @@ Both implementations can take images directly as input and produce the denoised 
 5. **contractive_factor.py**:   
 The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators \(P\) and \(R\) (refer to the paper)  using the power method.
 
-### Function: `power_method_for_images`
-#### Parameters:
+ Function: `power_method_for_images`
+ Parameters:
 
 - `f`: The operator implemented as a function for which the spectral norm is being computed.
 - `args_dict`: A dictionary containing arguments to the operator `f`.
 - `input_image`: Any image that has the same shape as the input to the operator `f`.
-
-#### Details:  
+- 
 ```math
 SE = \frac{\sigma}{\sqrt{n}}
 ```
 This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
 
 The function is instrumental in determining the contraction factor of the operator $ \mathbf{P} $ where:
-
-$` \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A}) `$
+```math
+ \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A})
+```
 
 and the operator $ \R $, defined as:
 
-$` \mathbf{R} = \frac{1}{2}(\I + \J), \qquad \J = \mathbf{F}\mathbf{V} `$
-$` \mathbf{F} = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I) `$
+```math \mathbf{R} = \frac{1}{2}(\I + \J), \qquad \J = \mathbf{F}\mathbf{V} \\
+ \mathbf{F} = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I)
+```
 
 Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the \( \|.\|_{D} \) norm is employed.
 
