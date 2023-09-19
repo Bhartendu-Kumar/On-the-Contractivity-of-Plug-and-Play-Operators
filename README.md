@@ -187,6 +187,9 @@ The `contractive_factor.py` module houses the necessary code to compute the larg
 - `input_image`: Any image that has the same shape as the input to the operator `f`.
 
 #### Details:  
+```math
+SE = \frac{\sigma}{\sqrt{n}}
+```
 This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
 
 The function is instrumental in determining the contraction factor of the operator $ \mathbf{P} $ where:
