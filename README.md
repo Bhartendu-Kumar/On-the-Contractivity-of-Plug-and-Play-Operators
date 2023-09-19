@@ -11,7 +11,7 @@ This repository is solving linear inverse problems in image processing. At its c
    
 3. **Deblurring (Uniform and Gaussian)**: The objective in this method is to counteract the blur effect in an image, bringing back its original clarity and sharpness.
 
-A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play Iterative Shrinkage Thresholding Algorithm). ISTA as an iterative algorithm for image reconstructions was due to Beck and Teboulle[^beck2009fast^]. Sreehari et al.[^sreehari2016plug^] showed using a powerful denoiser for ISTA, i.e. PnP-ISTA, is particularly effective for reconstructions. In our implementation, we've adopted the Non-Local Means denoiser (NLM) denoiser implement PnP-ISTA to get the reconstructions. This code does :
+A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play Iterative Shrinkage Thresholding Algorithm). ISTA as an iterative algorithm for image reconstructions was due to Beck and Teboulle[^beck2009fast^]. Sreehari et al.[^sreehari2016plug^] showed using a powerful denoiser for ISTA, i.e. PnP-ISTA, is particularly effective for reconstructions. In our implementation, we've adopted the Non-Local Means denoiser (NLM) denoiser int PnP-ISTA to get the reconstructions. This codes are for :
 - Image reconstruction and computes the iterates of ISTA.
 
 - The contractivity of relevant operators, symbolized as \(P\) and \(R\) (as detailed in our paper).
