@@ -223,7 +223,7 @@ If you find our work useful and wish to cite it, please use the following BibTeX
 ```
 @article{kumar2023contractivity,
     title={On the Contractivity of Plug-and-Play Operators},
-    author={Kumar, Bhartendu and Chaudhury, Kunal N.},
+    author={Athalye, Chirayu D. and Chaudhury, Kunal N. and Kumar, Bhartendu},
     journal={IEEE Signal Processing Letters},
     year={2023},
     volume={xx},
@@ -231,6 +231,7 @@ If you find our work useful and wish to cite it, please use the following BibTeX
     pages={xxx-xxx},
     doi={xx.xxxxx/xxxxx}
 }
+
 ```
 ### References:
 
