@@ -191,31 +191,31 @@ SE = \frac{\sigma}{\sqrt{n}}
 ```
 This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
 
-The function is instrumental in determining the contraction factor of the operator $ \mathbf{P} $ where:
+The function is instrumental in determining the contraction factor of the operator $` \mathbf{P} `$ where:
 ```math
  \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A})
 ```
 
-and the operator $ \R $, defined as:
+and the operator $` \mathbf{R} `$, defined as:
 
-```math \mathbf{R} = \frac{1}{2}(\I + \J), \qquad \J = \mathbf{F}\mathbf{V} \\
- \mathbf{F} = 2(\I + \rho \A^\top\A )^{-1} - \I, \qquad \V = (2\W-\I)
+```math \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} \\
+ \mathbf{F} = 2(\mathbf{I} + \rho \mathbf{A}^\top\mathbf{A} )^{-1} - \mathbf{I}, \qquad \mathbf{V} = (2\mathbf{W}-\mathbf{I})
 ```
 
-Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the \( \|.\|_{D} \) norm is employed.
+Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the $` \|.\|_{D} `$ norm is employed.
 
-Norm Computation for Operators \( \P \) and \( \R \)
+Norm Computation for Operators $` \P `$ and $` \R `$
 
-For the accurate calculation of the \( ||.||_2 \) norm or \( ||.||_D \) norm of the operators \( \P \) and \( \R \), there are several requirements:
+For the calculation of the $` ||.||_2 `$ norm or $` ||.||_D `$ norm of the operators $`  \mathbf{P} `$ and $`  \mathbf{R} `$, there we need:
 
-- Forward Operator \( A \): It should be implemented as an operator on an image. This operator represents the process or system we aim to invert or counteract when solving the inverse problem.
+- Forward Operator $`  \mathbf{A} `$: implemented as an operator on an image
 
-- Step Size: The step size (often denoted as \( \gamma \) or other Greek letters) determines the magnitude of each step in iterative algorithms like the power method. It can significantly impact the speed of convergence and the stability of the algorithm.
+- Step Size: $` \gamma `$ for PnP-ISTA and $` \rho `$ for PnP-ADMM.
 
-- Denoiser \( W \): This is a function that aims to remove noise from a given image. For our purposes, it requires three inputs:
-   - The noisy image.
+- Denoiser $` \mathbf{W} `$: which takes the noisy image, NLM parameters, and a guide image as input:
+   - The `noisy_image`.
    - The parameters for the Non-Local Means (NLM) algorithm.
-   - A guide image to help the denoising process.
+   - A `guide_image` to help the denoising process.
 
 **Note**: During the repeated application of the denoiser in the power method updates, we utilize the original image as the guide image. The power method itself starts with a randomly initialized image to perform its updates.
 
