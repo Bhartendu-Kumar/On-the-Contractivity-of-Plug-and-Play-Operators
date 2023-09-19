@@ -49,7 +49,6 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 │   ├── NLM.py                # Non-Local Means denoising implementation
 │   ├── GMM_denoiser/      # GMM denoiser directory (details/contents not provided)
 │   ├── bm3d_denoiser.py   # BM3D denoising algorithm
-│   ├── mlp_denoiser.py    # MLP denoising algorithm
 │   └── utility.py         # Utility functions for denoisers
 │
 ├── results/               # Directory to save results
