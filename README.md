@@ -11,7 +11,7 @@ This repository is solving linear inverse problems in image processing. At its c
    
 3. **Deblurring (Uniform and Gaussian)**: The objective of this method is to counteract the blur effect in an image, bringing back its original clarity and sharpness.
 
-A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play Iterative Shrinkage Thresholding Algorithm). ISTA as an iterative algorithm for image reconstructions was due to Beck and Teboulle[^beck2009fast^]. Sreehari et al.[^sreehari2016plug^] showed using a powerful denoiser for ISTA, i.e. PnP-ISTA, is particularly effective for reconstructions. In our implementation, we've adopted the Non-Local Means denoiser (NLM) denoiser in PnP-ISTA to get the reconstructions. These codes are for :
+A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play Iterative Shrinkage Thresholding Algorithm). ISTA due to Beck and Teboulle[^beck2009fast^] and ADMM by Boyd et.al [^admm^] as iterative algorithms for image reconstructions. Sreehari et al.[^sreehari2016plug^] showed using a powerful denoiser for ISTA/ADMM, i.e. PnP-ISTA/PnP-ADMM, are particularly effective for reconstructions. In our implementation, we've adopted the Non-Local Means denoiser (NLM) denoiser in PnP-ISTA/PnP-ADMM to get the reconstructions. These codes are for :
 - Image reconstruction and computes the iterates of ISTA and ADMM.
 
 - The contractivity of relevant operators, symbolized as \(P\) and \(R\) (as detailed in our paper).
@@ -162,5 +162,6 @@ If you find our work useful and wish to cite it, please use the following BibTeX
 ### References:
 
 [^beck2009fast^]: Beck, A., & Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. SIAM journal on imaging sciences, 2(1), 183-202.
+[^admm^]: Boyd, Stephen, et al. "Distributed optimization and statistical learning via the alternating direction method of multipliers." Foundations and Trends® in Machine learning 3.1 (2011): 1-122.
 
 [^sreehari2016plug^]: Sreehari, S., Venkatakrishnan, S. V., Wohlberg, B., Buzzard, G. T., Drummy, L. F., Simmons, J. P., & Bouman, C. A. (2016). Plug-and-play priors for bright field electron tomography and sparse interpolation. IEEE Transactions on Computational Imaging, 2(4), 408-423.
