@@ -189,15 +189,15 @@ The `contractive_factor.py` module houses the necessary code to compute the larg
       This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
       
       The function is instrumental in determining the contraction factor of the operator $` \mathbf{P} `$ where:
-      ```math
-       \mathbf{P} = \mathbf{W}(I-\gamma \mathbf{A}^\top\!  \mathbf{A})
-      ```
+      $`
+       \mathbf{P} = \mathbf{W}(\mathbf{I}-\gamma \mathbf{A}^\top\!  \mathbf{A})
+      `$
       
       and the operator $` \mathbf{R} `$, defined as:
       
-      ```math \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} \\
+      $`math \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} , `$ $`
        \mathbf{F} = 2(\mathbf{I} + \rho \mathbf{A}^\top\mathbf{A} )^{-1} - \mathbf{I}, \qquad \mathbf{V} = (2\mathbf{W}-\mathbf{I})
-      ```
+      `$
       
       Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the $` \|.\|_{D} `$ norm is employed.
 
