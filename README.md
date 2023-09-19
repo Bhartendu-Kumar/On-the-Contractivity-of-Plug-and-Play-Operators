@@ -196,7 +196,7 @@ The `contractive_factor.py` module houses the necessary code to compute the larg
       
       and the operator $` \mathbf{R} `$, defined as:
       
-      $` \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} , `$ $`
+      $` \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} , \qquad
        \mathbf{F} = 2(\mathbf{I} + \rho \mathbf{A}^\top\mathbf{A} )^{-1} - \mathbf{I}, \qquad \mathbf{V} = (2\mathbf{W}-\mathbf{I})
       `$
       
