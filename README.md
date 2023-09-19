@@ -179,45 +179,42 @@ Both implementations can take images directly as input and produce the denoised 
 5. **contractive_factor.py**:   
 The `contractive_factor.py` module houses the necessary code to compute the largest singular values of operators \(P\) and \(R\) (refer to the paper)  using the power method.
 
- Function: `power_method_for_images`
- Parameters:
-
-- `f`: The operator implemented as a function for which the spectral norm is being computed.
-- `args_dict`: A dictionary containing arguments to the operator `f`.
-- `input_image`: Any image that has the same shape as the input to the operator `f`.
-- 
-```math
-SE = \frac{\sigma}{\sqrt{n}}
-```
-This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
-
-The function is instrumental in determining the contraction factor of the operator $` \mathbf{P} `$ where:
-```math
- \mathbf{P} = \mathbf{W}(I-\gamma \A^\top\!  \mathbf{A})
-```
-
-and the operator $` \mathbf{R} `$, defined as:
-
-```math \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} \\
- \mathbf{F} = 2(\mathbf{I} + \rho \mathbf{A}^\top\mathbf{A} )^{-1} - \mathbf{I}, \qquad \mathbf{V} = (2\mathbf{W}-\mathbf{I})
-```
-
-Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the $` \|.\|_{D} `$ norm is employed.
-
-Norm Computation for Operators $` \P `$ and $` \R `$
-
-For the calculation of the $` ||.||_2 `$ norm or $` ||.||_D `$ norm of the operators $`  \mathbf{P} `$ and $`  \mathbf{R} `$, there we need:
-
-- Forward Operator $`  \mathbf{A} `$: implemented as an operator on an image
-
-- Step Size: $` \gamma `$ for PnP-ISTA and $` \rho `$ for PnP-ADMM.
-
-- Denoiser $` \mathbf{W} `$: which takes the noisy image, NLM parameters, and a guide image as input:
-   - The `noisy_image`.
-   - The parameters for the Non-Local Means (NLM) algorithm.
-   - A `guide_image` to help the denoising process.
-
-**Note**: During the repeated application of the denoiser in the power method updates, we utilize the original image as the guide image. The power method itself starts with a randomly initialized image to perform its updates.
+       Function: `power_method_for_images`
+       Parameters:
+      
+      - `f`: The operator implemented as a function for which the spectral norm is being computed.
+      - `args_dict`: A dictionary containing arguments to the operator `f`.
+      - `input_image`: Any image that has the same shape as the input to the operator `f`.
+      
+      This function starts by initializing a random image with the same shape as the provided `input_image`. It then applies the power method to ascertain the spectral norm of the operator given by `f`.
+      
+      The function is instrumental in determining the contraction factor of the operator $` \mathbf{P} `$ where:
+      ```math
+       \mathbf{P} = \mathbf{W}(I-\gamma \mathbf{A}^\top\!  \mathbf{A})
+      ```
+      
+      and the operator $` \mathbf{R} `$, defined as:
+      
+      ```math \mathbf{R} = \frac{1}{2}(\mathbf{I} + \mathbf{J}), \qquad \mathbf{J} = \mathbf{F}\mathbf{V} \\
+       \mathbf{F} = 2(\mathbf{I} + \rho \mathbf{A}^\top\mathbf{A} )^{-1} - \mathbf{I}, \qquad \mathbf{V} = (2\mathbf{W}-\mathbf{I})
+      ```
+      
+      Note: When the denoiser is `DSG_NLM`, the standard spectral norm is used for computations. However, when the denoiser is `NLM`, the $` \|.\|_{D} `$ norm is employed.
+      
+      Norm Computation for Operators $` \P `$ and $` \R `$
+      
+      For the calculation of the $` ||.||_2 `$ norm or $` ||.||_D `$ norm of the operators $`  \mathbf{P} `$ and $`  \mathbf{R} `$, there we need:
+      
+      - Forward Operator $`  \mathbf{A} `$: implemented as an operator on an image
+      
+      - Step Size: $` \gamma `$ for PnP-ISTA and $` \rho `$ for PnP-ADMM.
+      
+      - Denoiser $` \mathbf{W} `$: which takes the noisy image, NLM parameters, and a guide image as input:
+         - The `noisy_image`.
+         - The parameters for the Non-Local Means (NLM) algorithm.
+         - A `guide_image` to help the denoising process.
+      
+      **Note**: During the repeated application of the denoiser in the power method updates, we utilize the original image as the guide image. The power method itself starts with a randomly initialized image to perform its updates.
 
 ## 📝 Citation
 
