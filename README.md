@@ -1,4 +1,4 @@
-# On-the-Contractivity-of-Plug-and-Play-Operators
+# PnP-Conv
 
 #### This repository contains codes for the SPL paper: On the Contractivity of Plug-and-Play Operators
 ---
@@ -38,7 +38,7 @@ A cornerstone of the reconstruction methodology is the PnP-ISTA (Plug-and-play I
 
 
 ```
-On-the-Contractivity-of-Plug-and-Play-Operators/
+Pnp-Conv/
 │
 ├── images/                # Directory containing test images
 │   ├── 1.png              # Sample images
@@ -73,11 +73,11 @@ On-the-Contractivity-of-Plug-and-Play-Operators/
 
 1. **Clone the Repository**:
    ```
-   git clone https://github.com/Bhartendu-Kumar/On-the-Contractivity-of-Plug-and-Play-Operators.git
+   git clone https://github.com/Bhartendu-Kumar/PnP-Conv.git
    ```
 2. 🌐 Set Up a Virtual Environment (recommended)
 ```
-cd On-the-Contractivity-of-Plug-and-Play-Operators
+cd PnP-Conv
 python3 -m venv venv
 source venv/bin/activate
 ```
