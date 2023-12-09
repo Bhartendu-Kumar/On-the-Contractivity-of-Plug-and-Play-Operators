@@ -12,9 +12,6 @@ sys.path.append('../')
 import utils
 from utils import *
 importlib.reload(utils)
-import contractive_factor
-from contractive_factor import *
-importlib.reload(contractive_factor)
 
 
 
@@ -32,7 +29,12 @@ def P_operator(input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_f
     output_image = denoiser(output_image, **denoiser_kwargs)
     return output_image
 
-
+# we will write a function as adjoint of P operator
+def P_operator_adjoint(input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, \
+                A_adjoint_kwargs, eta):
+    output_image = denoiser(input_image, **denoiser_kwargs)
+    output_image = input_image - eta * A_function_adjoint(A_function(output_image, **A_kwargs), **A_adjoint_kwargs)
+    return output_image
 
 
 #we will write a function D to compute the linear operator D
@@ -63,6 +65,18 @@ def D_half_P_D_half_inverse(input_image, denoiser, denoiser_kwargs, A_function, 
     output_image = D(input_image=output_image, D_matrix=D_matrix, D_power=1/2)
     return output_image
 
+#we will define a function to compute D_half_P_operator_D_half_inverse_adjoint
+#input: input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, A_adjoint_kwargs, eta, D_matrix, D_power
+def D_half_P_D_half_inverse_adjoint(input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, A_adjoint_kwargs, eta, D_matrix):
+    #call D
+    output_image = D(input_image=input_image, D_matrix=D_matrix, D_power=1/2)
+    #call P
+    output_image = P_operator_adjoint(input_image=output_image, denoiser=denoiser, denoiser_kwargs=denoiser_kwargs, \
+        A_function=A_function, A_kwargs=A_kwargs, A_function_adjoint=A_function_adjoint, A_adjoint_kwargs=\
+            A_adjoint_kwargs, eta=eta)
+    #call D
+    output_image = D(input_image=output_image, D_matrix=D_matrix, D_power=-1/2)
+    return output_image
 
 
 #we will write a function to get the gradient of the forward model at x
@@ -132,50 +146,75 @@ def ISTA(image, x_k, b,  denoiser, denoiser_kwargs, iterations_to_fix_W, A_funct
         #estimate sigma, and add weight parameter
         elif denoiser.__name__ == 'denoise_tv_chambolle':
             pass
-            
+            # #estimate sigma
+            # sigma = estimate_sigma(x_k - z_k, multichannel=False)
+            # #add weight parameter
+            # denoiser_kwargs['weight'] = 0.1*sigma
+
+            # denoiser_kwargs['weight'] = 0.1
+
+            # #debug ----------------
+            # #print weight
+            # print('weight: ', denoiser_kwargs['weight'])
+            # #print max and min of x_k-z_k
+            # print('max of x_k-z_k: ', np.max(x_k-z_k))
+            # print('min of x_k-z_k: ', np.min(x_k-z_k))
+
+            # #max and min of x_k
+            # print('max of x_k: ', np.max(x_k))
+            # print('min of x_k: ', np.min(x_k))
+
+            # #max and min of z_k
+            # print('max of z_k: ', np.max(z_k))
+            # print('min of z_k: ', np.min(z_k))
+            # #debug ----------------
 
         #assert that anything else is error, denoiser not implamented
         else:
             raise ValueError('Denoiser not implemented')
             
-        # ## Contractive factor -------------------------------------------------------------------------
-        # if calculate_contractive_factor:
-        #     #we will calculate the contraction factor P =WG 
-        #     #we will use power method to calculate the largest eigenvalue of P=WG
-        #     #for power method we will call the function : power_method_for_images
-        #     #we will construc the argument dict args_dict for calling the function
-        #     #we will add input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, A_adjoint_kwargs, eta
-        #     args_dict_P = {'denoiser': denoiser, 'denoiser_kwargs': denoiser_kwargs, \
-        #         'A_function': A_function, 'A_kwargs': A_kwargs, 'A_function_adjoint': A_function_adjoint, \
-        #         'A_adjoint_kwargs': A_adjoint_kwargs, 'eta': eta}
-        #     #if the denoiser is DSG_NLM, then we will use the function P_operator for f in the power method function
-        #     #if its NLM, we will use f= D_half_P_D_half_inverse
-        #     if denoiser.__name__ == 'DSG_NLM':
-        #         function_spectral_norm = P_operator
-        #     elif denoiser.__name__ == 'NLM':
-        #         function_spectral_norm = D_half_P_D_half_inverse
-        #         #we need to add the keyword argument 'D_matrix' to the args_dict_P
-        #         #we can get teh D_matrix by calling teh denoiser with an extra keyword argument 'return_D_matrix' = True
-        #         #add the keyword argument 'return_D_matrix' = True to the denoiser_kwargs
-        #         denoiser_kwargs['return_D_matrix'] = True
-        #         #call the denoiser
-        #         _, D_matrix = denoiser(denoiser_kwargs['guide_image'], **denoiser_kwargs)
-        #         #drop the keyword argument 'return_D_matrix' = True from the denoiser_kwargs dictionary
-        #         del denoiser_kwargs['return_D_matrix']
-        #         #add the D_matrix to the args_dict_P
-        #         args_dict_P['D_matrix'] = D_matrix
+        ## Contractive factor -------------------------------------------------------------------------
+        if calculate_contractive_factor:
+            #we will calculate the contraction factor P =WG 
+            #we will use power method to calculate the largest eigenvalue of P=WG
+            #for power method we will call the function : power_method_for_images
+            #we will construc the argument dict args_dict for calling the function
+            #we will add input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, A_adjoint_kwargs, eta
+            args_dict_P = {'denoiser': denoiser, 'denoiser_kwargs': denoiser_kwargs, \
+                'A_function': A_function, 'A_kwargs': A_kwargs, 'A_function_adjoint': A_function_adjoint, \
+                'A_adjoint_kwargs': A_adjoint_kwargs, 'eta': eta}
+            #if the denoiser is DSG_NLM, then we will use the function P_operator for f in the power method function
+            #if its NLM, we will use f= D_half_P_D_half_inverse
+            if denoiser.__name__ == 'DSG_NLM':
+                function_spectral_norm = P_operator
+                function_spectral_norm_adjoint = P_operator_adjoint
+            elif denoiser.__name__ == 'NLM':
+                function_spectral_norm = D_half_P_D_half_inverse
+                #we need to add the keyword argument 'D_matrix' to the args_dict_P
+                #we can get teh D_matrix by calling teh denoiser with an extra keyword argument 'return_D_matrix' = True
+                #add the keyword argument 'return_D_matrix' = True to the denoiser_kwargs
+                denoiser_kwargs['return_D_matrix'] = True
+                #call the denoiser
+                _, D_matrix = denoiser(denoiser_kwargs['guide_image'], **denoiser_kwargs)
+                #drop the keyword argument 'return_D_matrix' = True from the denoiser_kwargs dictionary
+                del denoiser_kwargs['return_D_matrix']
+                #add the D_matrix to the args_dict_P
+                args_dict_P['D_matrix'] = D_matrix
 
-        #     else:
-        #         #assert error
-        #         assert False, 'denoiser is not implemented'
-        #     #call the power method function
-        #     contractive_factor = power_method_for_images(f = function_spectral_norm, input_image = x_k, \
-        #         args_dict = args_dict_P, max_iterations=power_method_max_iterations )
-        #     # #append the contractive factor to the list
-        #     # contractive_factor_list.append(contractive_factor)
-        #     #print the contractive factor
-        #     print('contractive factor: ', contractive_factor)
-        #     #contractive factor ends ----------------------------------------------------------------------
+            else:
+                #assert error
+                assert False, 'denoiser is not implemented'
+            #call the power method function
+            # contractive_factor = power_method_for_images(f = function_spectral_norm, input_image = x_k, \
+            #     args_dict = args_dict_P, max_iterations=power_method_max_iterations )
+            contractive_factor = power_method_for_images_non_symmetric(functional = function_spectral_norm, functional_adjoint = function_spectral_norm_adjoint, \
+                image_height = x_k.shape[0], image_width = x_k.shape[1], args_dict_functional = args_dict_P, \
+                 args_dict_functional_adjoint = args_dict_P, max_iterations=power_method_max_iterations )   
+            # #append the contractive factor to the list
+            # contractive_factor_list.append(contractive_factor)
+            #print the contractive factor
+            print('contractive factor: ', contractive_factor)
+            #contractive factor ends ----------------------------------------------------------------------
 
         # #check that the keword argumnt in dictionary 'guide_image' is present and not None
         # assert 'guide_image' in denoiser_kwargs.keys() and denoiser_kwargs['guide_image'] is not None
