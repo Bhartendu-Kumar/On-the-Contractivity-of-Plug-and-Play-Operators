@@ -13,6 +13,9 @@ import utils
 from utils import *
 importlib.reload(utils)
 
+import contractive_factor
+from contractive_factor import *
+importlib.reload(contractive_factor)
 
 
 
@@ -33,7 +36,7 @@ def P_operator(input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_f
 def P_operator_adjoint(input_image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, \
                 A_adjoint_kwargs, eta):
     output_image = denoiser(input_image, **denoiser_kwargs)
-    output_image = input_image - eta * A_function_adjoint(A_function(output_image, **A_kwargs), **A_adjoint_kwargs)
+    output_image = output_image - eta * A_function_adjoint(A_function(output_image, **A_kwargs), **A_adjoint_kwargs)
     return output_image
 
 
@@ -94,7 +97,19 @@ def get_gradient(A_function, A_kwargs, A_function_adjoint, A_adjoint_kwargs, x, 
     return gradient
 
 
-
+def contraction_factor_P(image, denoiser, denoiser_kwargs, A_function, A_kwargs, A_function_adjoint, \
+                A_adjoint_kwargs, eta, max_iterations=1000, \
+                            norm_tolerance=1e-8, dot_tolerance=1e-12, plot= True, verbose = True):
+    P_kwargs = {'denoiser': denoiser, 'denoiser_kwargs': denoiser_kwargs, 'A_function': A_function, \
+                    'A_kwargs': A_kwargs, 'A_function_adjoint': A_function_adjoint, 'A_adjoint_kwargs': \
+                        A_adjoint_kwargs, 'eta': eta}
+    contraction_factor, _ , _ = power_method_for_images_non_symmetric ( functional = P_operator, \
+        functional_adjoint = P_operator_adjoint, image_height = image.shape[0], image_width = image.shape[1], \
+        args_dict_functional = P_kwargs, args_dict_functional_adjoint = P_kwargs, \
+            max_iterations = max_iterations, norm_tolerance = norm_tolerance, dot_tolerance = dot_tolerance, \
+                plot = plot, verbose = verbose )
+    
+    return contraction_factor
 
 
 
@@ -190,6 +205,7 @@ def ISTA(image, x_k, b,  denoiser, denoiser_kwargs, iterations_to_fix_W, A_funct
                 function_spectral_norm_adjoint = P_operator_adjoint
             elif denoiser.__name__ == 'NLM':
                 function_spectral_norm = D_half_P_D_half_inverse
+                function_spectral_norm_adjoint = D_half_P_D_half_inverse_adjoint
                 #we need to add the keyword argument 'D_matrix' to the args_dict_P
                 #we can get teh D_matrix by calling teh denoiser with an extra keyword argument 'return_D_matrix' = True
                 #add the keyword argument 'return_D_matrix' = True to the denoiser_kwargs

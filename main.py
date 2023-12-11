@@ -52,8 +52,6 @@ def main():
     initialization = args.initialization
     ITERATIVE_ALGORITHM = args.ITERATIVE_ALGORITHM
     INVERSE_PROBLEM = args.INVERSE_PROBLEM
-    #get the denoiser
-    denoiser_name = args.denoiser
     
     #check if output path exists, else create it
     if not os.path.exists(output_path):
@@ -90,15 +88,6 @@ def main():
     #else assert error
     else:
         assert False, 'Inverse problem not implemented'
-
-    if denoiser_name == 'DSG_NLM':
-        denoiser = DSG_NLM
-        denoiser_kwargs = {'patch_rad': 3, 'window_rad': 10, 'sigma': 40.0/255.0}
-    elif denoiser_name == 'NLM':
-        denoiser = NLM
-        denoiser_kwargs = {'patch_rad': 3, 'window_rad': 10, 'sigma': 40.0/255.0}
-    else:
-        assert False, 'denoiser not implemented'
 
 
     #----------------------------------      LOADING IMAGE       ----------------------------------
@@ -265,20 +254,16 @@ def main():
         args_dict_P = {'denoiser': denoiser, 'denoiser_kwargs': denoiser_kwargs, \
             'A_function': A_function, 'A_kwargs': A_kwargs, 'A_function_adjoint': A_function_adjoint, \
             'A_adjoint_kwargs': A_adjoint_kwargs, 'eta': step_size}
-        function_spectral_norm = P_operator
-        function_adjoint_spectral_norm = P_operator_adjoint
         #if the denoiser is DSG_NLM, then we will use the function P_operator for f in the power method function
         #if its NLM, we will use f= D_half_P_D_half_inverse
         if denoiser.__name__ == 'DSG_NLM':
             #add keyword 'guide_image' = image to the denoiser_kwargs
             denoiser_kwargs['guide_image'] = image
-            #call the power method function
-            contractive_factor = power_method_for_images(f = function_spectral_norm, f_adjoint = function_adjoint_spectral_norm,
-                                                        input_image = x0, \
-                args_dict = args_dict_P, max_iterations=power_method_max_iterations )
+            function_spectral_norm = P_operator
         elif denoiser.__name__ == 'NLM':
             #add keyword 'guide_image' = image to the denoiser_kwargs
             denoiser_kwargs['guide_image'] = image
+            function_spectral_norm = D_half_P_D_half_inverse
             #we need to add the keyword argument 'D_matrix' to the args_dict_P
             #we can get teh D_matrix by calling teh denoiser with an extra keyword argument 'return_D_matrix' = True
             #add the keyword argument 'return_D_matrix' = True to the denoiser_kwargs
@@ -287,15 +272,16 @@ def main():
             _, D_matrix = denoiser(x_k_plus_1, **denoiser_kwargs)
             #drop the keyword argument 'return_D_matrix' = True from the denoiser_kwargs dictionary
             del denoiser_kwargs['return_D_matrix']
-
-            contractive_factor = power_method_for_images_scaled_inner_product(f = function_spectral_norm,\
-                f_adjoint = function_adjoint_spectral_norm, D = D, D_matrix = D_matrix, input_image = x0, \
-                args_dict = args_dict_P, max_iterations=power_method_max_iterations )
+            #add the D_matrix to the args_dict_P
+            args_dict_P['D_matrix'] = D_matrix
         else:
             #assert error
             assert False, 'denoiser is not implemented'
-        #print the contractive factor
-        print('contractive factor: ', contractive_factor)
+        # #call the power method function
+        # contractive_factor = power_method_for_images(f = function_spectral_norm, input_image = x0, \
+        #     args_dict = args_dict_P, max_iterations=power_method_max_iterations )
+        # #print the contractive factor
+        # print('contractive factor: ', contractive_factor)
         #delete the keyword argument 'guide_image' from the denoiser_kwargs if its there
         if 'guide_image' in denoiser_kwargs.keys():
             del denoiser_kwargs['guide_image']
