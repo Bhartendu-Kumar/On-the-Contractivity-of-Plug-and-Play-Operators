@@ -269,7 +269,7 @@ def main():
             #add the keyword argument 'return_D_matrix' = True to the denoiser_kwargs
             denoiser_kwargs['return_D_matrix'] = True
             #call the denoiser
-            _, D_matrix = denoiser(x_k_plus_1, **denoiser_kwargs)
+            _, D_matrix = denoiser(image, **denoiser_kwargs)
             #drop the keyword argument 'return_D_matrix' = True from the denoiser_kwargs dictionary
             del denoiser_kwargs['return_D_matrix']
             #add the D_matrix to the args_dict_P
