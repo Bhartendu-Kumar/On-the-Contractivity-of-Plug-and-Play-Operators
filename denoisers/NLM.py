@@ -10,7 +10,7 @@ from scipy import ndimage
 from scipy import signal
 from scipy import misc
 from scipy import linalg
-from scipy.sparse.linalg import arpack
+#from scipy.sparse.linalg import arpack
 #we will import library to build DFT matrices
 #we wont need fft but strictly DFT
 #import scipy
