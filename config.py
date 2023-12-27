@@ -3,9 +3,9 @@ import importlib
 import cv2
 
 #denoiser
-import NLM
-importlib.reload(NLM)
-from NLM import DSG_NLM
+import denoisers.NLM
+importlib.reload(denoisers.NLM)
+from denoisers.NLM import DSG_NLM
 
 #hyperparameters--
 noise_variance = 10.0/255.0
